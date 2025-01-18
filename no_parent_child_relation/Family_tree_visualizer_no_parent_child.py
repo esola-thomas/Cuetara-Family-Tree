@@ -24,54 +24,65 @@ output_path = "family_tree.html"
 
 try:
     with open(output_path, "w") as file:
-        # Write the basic HTML structure
-        file.write("""
+        # Generate the HTML structure with injected timestamp
+        file.write(f"""
 <html>
 <head>
 <title>Familia Gómez-Cuétara</title>
 <style>
-    .group { display: none; }
-    .group-title { display: none; font-weight: bold; }
-    .highlight { background-color: yellow; font-weight: bold; }
+    .group {{ display: none; }}
+    .group-title {{ display: none; font-weight: bold; }}
+    .highlight {{ background-color: yellow; font-weight: bold; }}
 </style>
 <script>
-    function toggleGroup(group) {
+    // Toggle visibility of a specific group
+    function toggleGroup(group) {{
         const elements = document.getElementsByClassName(group);
-        for (let i = 0; i < elements.length; i++) {
+        for (let i = 0; i < elements.length; i++) {{
             elements[i].style.display = elements[i].style.display === 'none' ? 'block' : 'none';
-        }
-    }
+        }}
+    }}
 
-    function searchName() {
+    // Search for a name and highlight results
+    function searchName() {{
         const query = document.getElementById('searchBox').value.toLowerCase();
         const groups = document.getElementsByClassName('group');
         let found = false;
 
-        // Reset all highlights and close groups
-        for (let i = 0; i < groups.length; i++) {
+        // Toggle all checkboxes to checked and display all groups
+        const checkboxes = document.querySelectorAll("input[type='checkbox']");
+        checkboxes.forEach((checkbox) => {{
+            checkbox.checked = true; // Check all checkboxes
+            const groupClass = checkbox.getAttribute("onclick").match(/'(.*?)'/)[1];
+            const groupElements = document.getElementsByClassName(groupClass);
+            for (let i = 0; i < groupElements.length; i++) {{
+                groupElements[i].style.display = 'block'; // Show all groups
+            }}
+        }});
+
+        // Reset all highlights
+        for (let i = 0; i < groups.length; i++) {{
             const items = groups[i].getElementsByTagName('li');
-            for (let j = 0; j < items.length; j++) {
+            for (let j = 0; j < items.length; j++) {{
                 items[j].classList.remove('highlight');
-            }
-            groups[i].style.display = 'none';
-        }
+            }}
+        }}
 
         // Search for the name and highlight matches
-        for (let i = 0; i < groups.length; i++) {
+        for (let i = 0; i < groups.length; i++) {{
             const items = groups[i].getElementsByTagName('li');
-            for (let j = 0; j < items.length; j++) {
-                if (items[j].innerText.toLowerCase().includes(query)) {
+            for (let j = 0; j < items.length; j++) {{
+                if (items[j].innerText.toLowerCase().includes(query)) {{
                     items[j].classList.add('highlight');
-                    groups[i].style.display = 'block';
                     found = true;
-                }
-            }
-        }
+                }}
+            }}
+        }}
 
-        if (!found) {
+        if (!found) {{
             alert("No matches found.");
-        }
-    }
+        }}
+    }}
 </script>
 </head>
 <body>
