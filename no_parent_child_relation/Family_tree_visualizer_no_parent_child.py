@@ -1,4 +1,5 @@
 import pandas as pd
+from datetime import datetime
 
 # File path to the input CSV
 file_path = "input.csv"
@@ -14,6 +15,9 @@ df = df.sort_values(by=["Date of Birth", "Name"]).reset_index(drop=True)
 
 # Add the Family Member Number
 df["Family Member Number"] = df.index + 1  # Assign a sequential number based on the sorted order
+
+# Generate the current timestamp
+timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # Generate the HTML output
 output_path = "family_tree.html"
@@ -71,7 +75,8 @@ try:
 </script>
 </head>
 <body>
-<h1>Family Tree</h1>
+<h1>Familia Gómez-Cuétara</h1>
+<h2>Last Generated: {timestamp}</h2>
 
 <!-- Search Box -->
 <div>
