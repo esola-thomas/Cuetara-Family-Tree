@@ -5,6 +5,7 @@
 <style>
     .group { display: none; }
     .group-title { display: none; font-weight: bold; }
+    .highlight { background-color: yellow; font-weight: bold; }
 </style>
 <script>
     function toggleGroup(group) {
@@ -13,10 +14,48 @@
             elements[i].style.display = elements[i].style.display === 'none' ? 'block' : 'none';
         }
     }
+
+    function searchName() {
+        const query = document.getElementById('searchBox').value.toLowerCase();
+        const groups = document.getElementsByClassName('group');
+        let found = false;
+
+        // Reset all highlights and close groups
+        for (let i = 0; i < groups.length; i++) {
+            const items = groups[i].getElementsByTagName('li');
+            for (let j = 0; j < items.length; j++) {
+                items[j].classList.remove('highlight');
+            }
+            groups[i].style.display = 'none';
+        }
+
+        // Search for the name and highlight matches
+        for (let i = 0; i < groups.length; i++) {
+            const items = groups[i].getElementsByTagName('li');
+            for (let j = 0; j < items.length; j++) {
+                if (items[j].innerText.toLowerCase().includes(query)) {
+                    items[j].classList.add('highlight');
+                    groups[i].style.display = 'block';
+                    found = true;
+                }
+            }
+        }
+
+        if (!found) {
+            alert("No matches found.");
+        }
+    }
 </script>
 </head>
 <body>
 <h1>Family Tree</h1>
+
+<!-- Search Box -->
+<div>
+    <input type="text" id="searchBox" placeholder="Search by name">
+    <button onclick="searchName()">Search</button>
+</div>
+<br>
 
 <label>
     <input type="checkbox" onclick="toggleGroup('yernos')" />
@@ -44,10 +83,10 @@
 </label><br>
 <div class="group-title yernos" style="display:none;">Yernos</div>
 <ul class="group yernos" style="display:none;">
-<li>#1: Tomás Pascual Sanz (DOB: 1926-12-20) (Deceased)</li>
-<li>#2: Blas Suero Alonso (DOB: 1927-10-07) (Deceased)</li>
-<li>#3: Alejandro Ibáñez Cullía (DOB: 1935-03-12) (Deceased)</li>
-<li>#5: Miguel Pérez-Mínguez Gutíerrez-Solana (DOB: 1936-04-23) (Deceased)</li>
+<li>#1: Tomás Pascual Sanz (DOB: 1926-12-20) ✝</li>
+<li>#2: Blas Suero Alonso (DOB: 1927-10-07) ✝</li>
+<li>#3: Alejandro Ibáñez Cullía (DOB: 1935-03-12) ✝</li>
+<li>#5: Miguel Pérez-Mínguez Gutíerrez-Solana (DOB: 1936-04-23) ✝</li>
 <li>#8: Roberto Schumann Abad (DOB: 1941-04-12)</li>
 <li>#14: José Madrazo Revilla (DOB: 1949-08-10)</li>
 <li>#15: Luis García Otí (DOB: 1950-06-21)</li>
@@ -162,14 +201,14 @@
 <li>#149: Paula Ibáñez Ordax (DOB: 2000-12-04)</li>
 <li>#150: Juana Bach Pascual (DOB: 2001-02-15)</li>
 <li>#151: David Ibáñez García (DOB: 2001-05-29)</li>
-<li>#152: Ernesto Sola-Thomas (DOB: 2002-05-02)</li>
+<li>#152: Ernesto Schumann Solá (DOB: 2002-05-02)</li>
 <li>#153: Marta Suero Morón (DOB: 2002-05-28)</li>
 <li>#154: Covadonga García Ibáñez (DOB: 2002-07-23)</li>
 <li>#155: Marina González Suero (DOB: 2003-04-04)</li>
 <li>#156: Celia Suero Zapico (DOB: 2003-04-25)</li>
 <li>#157: Manuel Schumann López (DOB: 2003-07-08)</li>
 <li>#158: Santiago Ibáñez Ordax (DOB: 2003-11-20)</li>
-<li>#159: Juan Pablo Sola-Thomas (DOB: 2004-09-19)</li>
+<li>#159: Juan Pablo Schumann Solá (DOB: 2004-09-19)</li>
 <li>#160: Pablo Schumann Gómez-Cuétara (DOB: 2005-01-08)</li>
 <li>#161: Pepe Frías Pascual (DOB: 2005-09-08)</li>
 <li>#162: Ramón Suero Molina (DOB: 2005-11-23)</li>
@@ -190,7 +229,7 @@
 <li>#177: Lucas Pascual Saco (DOB: 2009-07-13)</li>
 <li>#178: Sofía Gómez-Acebo Bustillo (DOB: 2009-08-08)</li>
 <li>#179: Muriel Pérez-Mínguez Fernández (DOB: 2009-08-10)</li>
-<li>#180: María Schumann Sola (DOB: 2009-11-06)</li>
+<li>#180: María Schumann Solá (DOB: 2009-11-06)</li>
 <li>#181: Santiago Schumann Palma (DOB: 2009-12-09)</li>
 <li>#182: Jacobo Madrazo Mazas (DOB: 2010-03-08)</li>
 <li>#183: Miriam Mercado Schumann (DOB: 2010-09-10)</li>

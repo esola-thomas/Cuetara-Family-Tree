@@ -24,10 +24,11 @@ try:
         file.write("""
 <html>
 <head>
-<title>Family Tree</title>
+<title>Familia Gómez-Cuétara</title>
 <style>
     .group { display: none; }
     .group-title { display: none; font-weight: bold; }
+    .highlight { background-color: yellow; font-weight: bold; }
 </style>
 <script>
     function toggleGroup(group) {
@@ -36,10 +37,48 @@ try:
             elements[i].style.display = elements[i].style.display === 'none' ? 'block' : 'none';
         }
     }
+
+    function searchName() {
+        const query = document.getElementById('searchBox').value.toLowerCase();
+        const groups = document.getElementsByClassName('group');
+        let found = false;
+
+        // Reset all highlights and close groups
+        for (let i = 0; i < groups.length; i++) {
+            const items = groups[i].getElementsByTagName('li');
+            for (let j = 0; j < items.length; j++) {
+                items[j].classList.remove('highlight');
+            }
+            groups[i].style.display = 'none';
+        }
+
+        // Search for the name and highlight matches
+        for (let i = 0; i < groups.length; i++) {
+            const items = groups[i].getElementsByTagName('li');
+            for (let j = 0; j < items.length; j++) {
+                if (items[j].innerText.toLowerCase().includes(query)) {
+                    items[j].classList.add('highlight');
+                    groups[i].style.display = 'block';
+                    found = true;
+                }
+            }
+        }
+
+        if (!found) {
+            alert("No matches found.");
+        }
+    }
 </script>
 </head>
 <body>
 <h1>Family Tree</h1>
+
+<!-- Search Box -->
+<div>
+    <input type="text" id="searchBox" placeholder="Search by name">
+    <button onclick="searchName()">Search</button>
+</div>
+<br>
 """)
 
         # Create checkboxes for each hierarchy level
@@ -62,7 +101,7 @@ try:
             # Write each person in this level
             for _, row in level_data.iterrows():
                 # Determine if status needs to be displayed
-                status = " (Deceased)" if row["Alive"].strip().lower() == "no" else ""
+                status = " ✝" if row["Alive"].strip().lower() == "no" else ""
                 # Add individual as a list item with Family Member Number
                 file.write(f"<li>#{row['Family Member Number']}: {row['Name']} (DOB: {row['Date of Birth'].date()}){status}</li>\n")
 
