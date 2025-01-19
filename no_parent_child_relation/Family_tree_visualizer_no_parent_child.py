@@ -1,9 +1,26 @@
 import pandas as pd
 from datetime import datetime
 import pytz
+import argparse
+import os
+
+# Parse command-line arguments
+parser = argparse.ArgumentParser(description="Generate a family tree HTML report.")
+parser.add_argument(
+    "--input",
+    type=str,
+    default="input.csv",
+    help="Path to the input CSV file (default: input.csv)"
+)
+args = parser.parse_args()
 
 # File path to the input CSV
-file_path = "input.csv"
+file_path = args.input
+
+# Check if the input file exists
+if not os.path.isfile(file_path):
+    print(f"Error: The input file '{file_path}' does not exist.")
+    exit(1)
 
 # Load the family data
 df = pd.read_csv(file_path)
@@ -129,6 +146,6 @@ try:
         # Close the HTML structure
         file.write("</body>\n</html>")
 
-    print(f"Family tree saved to {output_path}")
+    print(f"✅ Family tree saved to {output_path}")
 except Exception as e:
-    print(f"\nAn error occurred while generating the HTML: {e}")
+    print(f"\n❌ Error: An error occurred while generating the HTML: {e}")
