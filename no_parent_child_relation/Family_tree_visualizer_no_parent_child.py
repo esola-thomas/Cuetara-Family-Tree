@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import datetime
+import pytz
 
 # File path to the input CSV
 file_path = "input.csv"
@@ -16,8 +17,10 @@ df = df.sort_values(by=["Date of Birth", "Name"]).reset_index(drop=True)
 # Add the Family Member Number
 df["Family Member Number"] = df.index + 1  # Assign a sequential number based on the sorted order
 
-# Generate the current timestamp
-timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+# Generate the current timestamp in EST
+utc_now = datetime.now(pytz.utc)
+est = pytz.timezone("US/Eastern")
+timestamp = utc_now.astimezone(est).strftime("%Y-%m-%d %I:%M:%S %p %Z")  # Format includes AM/PM and timezone abbreviation
 
 # Generate the HTML output
 output_path = "family_tree.html"
@@ -128,4 +131,4 @@ try:
 
     print(f"Family tree saved to {output_path}")
 except Exception as e:
-    print(f"\nAn error occurred: {e}")
+    print(f"\nAn error occurred while generating the HTML: {e}")
