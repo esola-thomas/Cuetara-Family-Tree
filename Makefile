@@ -4,7 +4,7 @@
 PYTHON_BIN := python3.10
 VENV_DIR := ./venv
 SCRIPT := ./no_parent_child_relation/Family_tree_visualizer_no_parent_child.py
-INPUT := no_parent_child_relation/input.csv
+INPUT := no_parent_child_relation/Gomez-Cuetara.csv
 OUTPUT := ./no_parent_child_relation/family_tree.html
 FINAL_HTML := ./index.html
 
