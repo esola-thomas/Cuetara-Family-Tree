@@ -65,7 +65,7 @@ try:
 
     // Search for a name and highlight results
     function searchName() {{
-        const query = document.getElementById('searchBox').value.toLowerCase();
+        const query = document.getElementById('searchBox').value.toLowerCase().trim();
         const groups = document.getElementsByClassName('group');
         let found = false;
 
@@ -88,11 +88,12 @@ try:
             }}
         }}
 
-        // Search for the name and highlight matches
+        // Search for the name and highlight exact matches
         for (let i = 0; i < groups.length; i++) {{
             const items = groups[i].getElementsByTagName('li');
             for (let j = 0; j < items.length; j++) {{
-                if (items[j].innerText.toLowerCase().includes(query)) {{
+                // Perform exact match check instead of partial match
+                if (items[j].innerText.toLowerCase().trim() === query) {{
                     items[j].classList.add('highlight');
                     found = true;
                 }}
