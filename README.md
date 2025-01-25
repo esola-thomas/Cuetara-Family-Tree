@@ -23,3 +23,7 @@ This project is a Python-based tool for visualizing family relationships as an i
    ```bash
    git clone https://github.com/esola-thomas/family-tree-visualization.git
    cd family-tree-visualization
+
+## Run instructions
+
+`make` or `make all`
