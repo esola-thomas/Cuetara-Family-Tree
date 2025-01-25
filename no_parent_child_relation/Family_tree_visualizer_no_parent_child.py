@@ -63,45 +63,14 @@ try:
         }}
     }}
 
-    // Search for a name and highlight results
-    function searchName() {{
-        const query = document.getElementById('searchBox').value.toLowerCase().trim();
-        const groups = document.getElementsByClassName('group');
-        let found = false;
+    // Update checkbox behavior to ensure exact matches
+    function toggleCheckbox(checkbox, group) {{
+        const isChecked = checkbox.checked;
+        const groups = document.getElementsByClassName(group);
 
-        // Toggle all checkboxes to checked and display all groups
-        const checkboxes = document.querySelectorAll("input[type='checkbox']");
-        checkboxes.forEach((checkbox) => {{
-            checkbox.checked = true; // Check all checkboxes
-            const groupClass = checkbox.getAttribute("onclick").match(/'(.*?)'/)[1];
-            const groupElements = document.getElementsByClassName(groupClass);
-            for (let i = 0; i < groupElements.length; i++) {{
-                groupElements[i].style.display = 'block'; // Show all groups
-            }}
-        }});
-
-        // Reset all highlights
+        // Update display only for the exact matching group
         for (let i = 0; i < groups.length; i++) {{
-            const items = groups[i].getElementsByTagName('li');
-            for (let j = 0; j < items.length; j++) {{
-                items[j].classList.remove('highlight');
-            }}
-        }}
-
-        // Search for the name and highlight exact matches
-        for (let i = 0; i < groups.length; i++) {{
-            const items = groups[i].getElementsByTagName('li');
-            for (let j = 0; j < items.length; j++) {{
-                // Perform exact match check instead of partial match
-                if (items[j].innerText.toLowerCase().trim() === query) {{
-                    items[j].classList.add('highlight');
-                    found = true;
-                }}
-            }}
-        }}
-
-        if (!found) {{
-            alert("No matches found.");
+            groups[i].style.display = isChecked ? 'block' : 'none';
         }}
     }}
 </script>
@@ -123,7 +92,7 @@ try:
         for level in levels:
             file.write(f"""
 <label>
-    <input type="checkbox" onclick="toggleGroup('{level.lower()}')" />
+    <input type="checkbox" onclick="toggleCheckbox(this, '{level.lower()}')" />
     {level.capitalize()}
 </label><br>
 """)

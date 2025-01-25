@@ -16,52 +16,21 @@
         }
     }
 
-    // Search for a name and highlight results
-    function searchName() {
-        const query = document.getElementById('searchBox').value.toLowerCase().trim();
-        const groups = document.getElementsByClassName('group');
-        let found = false;
+    // Update checkbox behavior to ensure exact matches
+    function toggleCheckbox(checkbox, group) {
+        const isChecked = checkbox.checked;
+        const groups = document.getElementsByClassName(group);
 
-        // Toggle all checkboxes to checked and display all groups
-        const checkboxes = document.querySelectorAll("input[type='checkbox']");
-        checkboxes.forEach((checkbox) => {
-            checkbox.checked = true; // Check all checkboxes
-            const groupClass = checkbox.getAttribute("onclick").match(/'(.*?)'/)[1];
-            const groupElements = document.getElementsByClassName(groupClass);
-            for (let i = 0; i < groupElements.length; i++) {
-                groupElements[i].style.display = 'block'; // Show all groups
-            }
-        });
-
-        // Reset all highlights
+        // Update display only for the exact matching group
         for (let i = 0; i < groups.length; i++) {
-            const items = groups[i].getElementsByTagName('li');
-            for (let j = 0; j < items.length; j++) {
-                items[j].classList.remove('highlight');
-            }
-        }
-
-        // Search for the name and highlight exact matches
-        for (let i = 0; i < groups.length; i++) {
-            const items = groups[i].getElementsByTagName('li');
-            for (let j = 0; j < items.length; j++) {
-                // Perform exact match check instead of partial match
-                if (items[j].innerText.toLowerCase().trim() === query) {
-                    items[j].classList.add('highlight');
-                    found = true;
-                }
-            }
-        }
-
-        if (!found) {
-            alert("No matches found.");
+            groups[i].style.display = isChecked ? 'block' : 'none';
         }
     }
 </script>
 </head>
 <body>
 <h1>Familia Gómez-Cuétara</h1>
-<h2>Last Generated: 2025-01-24 10:21:08 PM EST</h2>
+<h2>Last Generated: 2025-01-24 10:26:53 PM EST</h2>
 
 <!-- Search Box -->
 <div>
@@ -71,42 +40,42 @@
 <br>
 
 <label>
-    <input type="checkbox" onclick="toggleGroup('yernos')" />
+    <input type="checkbox" onclick="toggleCheckbox(this, 'yernos')" />
     Yernos
 </label><br>
 
 <label>
-    <input type="checkbox" onclick="toggleGroup('hijo')" />
+    <input type="checkbox" onclick="toggleCheckbox(this, 'hijo')" />
     Hijo
 </label><br>
 
 <label>
-    <input type="checkbox" onclick="toggleGroup('nuera')" />
+    <input type="checkbox" onclick="toggleCheckbox(this, 'nuera')" />
     Nuera
 </label><br>
 
 <label>
-    <input type="checkbox" onclick="toggleGroup('nieto politico')" />
+    <input type="checkbox" onclick="toggleCheckbox(this, 'nieto politico')" />
     Nieto politico
 </label><br>
 
 <label>
-    <input type="checkbox" onclick="toggleGroup('nieto')" />
+    <input type="checkbox" onclick="toggleCheckbox(this, 'nieto')" />
     Nieto
 </label><br>
 
 <label>
-    <input type="checkbox" onclick="toggleGroup('bisnieto politico')" />
+    <input type="checkbox" onclick="toggleCheckbox(this, 'bisnieto politico')" />
     Bisnieto politico
 </label><br>
 
 <label>
-    <input type="checkbox" onclick="toggleGroup('bisnieto')" />
+    <input type="checkbox" onclick="toggleCheckbox(this, 'bisnieto')" />
     Bisnieto
 </label><br>
 
 <label>
-    <input type="checkbox" onclick="toggleGroup('tataranieto')" />
+    <input type="checkbox" onclick="toggleCheckbox(this, 'tataranieto')" />
     Tataranieto
 </label><br>
 <div class="group-title yernos" style="display:none;">Yernos</div>
